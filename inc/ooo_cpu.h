@@ -1,6 +1,8 @@
 #ifndef OOO_CPU_H
 #define OOO_CPU_H
 
+#include <unordered_set>
+
 #include "cache.h"
 #include "instruction.h"
 
@@ -122,6 +124,8 @@ class O3_CPU
         L2C_RQ_SIZE,
         L2C_PQ_SIZE,
         L2C_MSHR_SIZE};
+
+  std::unordered_set<uint64_t> unique_ppages;  // for stats purpose
 
   // constructor
   O3_CPU()

@@ -6,253 +6,283 @@
 
 #ifndef __SET_H
 #define __SET_H
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
 
-#define TYPE	unsigned short int
-//#define MAX_SIZE	ROB_SIZE
-// sethpugsley - changed this from ROB_SIZE to allow for non-power-of-2 ROB sizes, like real CPUs have
-// but MAX_SIZE here still requires a power-of-2 number
-#define MAX_SIZE	512
+#define TYPE unsigned short int
+// #define MAX_SIZE	ROB_SIZE
+//  sethpugsley - changed this from ROB_SIZE to allow for non-power-of-2 ROB
+//  sizes, like real CPUs have but MAX_SIZE here still requires a power-of-2
+//  number
+#define MAX_SIZE 2048
 
 // tuned empirically
 
-#define SMALL_SIZE	13
-#define SMALLER_SIZE	6
+#define SMALL_SIZE   13
+#define SMALLER_SIZE 6
 
-class fastset {
-	union {
-		// values for a small set
-		TYPE 
-			values[SMALL_SIZE];
+class fastset
+{
+  union {
+    // values for a small set
+    TYPE values[SMALL_SIZE];
 
-		// the bits representing the set
-		unsigned long long int 
-			bits[MAX_SIZE/64];
-	} data;
+    // the bits representing the set
+    unsigned long long int bits[MAX_SIZE / 64];
+  } data;
 
-	int
-		card;		// cardinality of small set
+  int card;  // cardinality of small set
 
-	// set a bit in the bits
+  // set a bit in the bits
 
-	void setbit (TYPE x) {
-		int word = x >> 6;
-		int bit = x & 63;
-		data.bits[word] |= 1ull << bit;
-	}
+  void setbit(TYPE x)
+  {
+    int word = x >> 6;
+    int bit  = x & 63;
+    data.bits[word] |= 1ull << bit;
+  }
 
-	// get one of the bits
+  // get one of the bits
 
-	bool getbit (TYPE x) {
-		int word = x >> 6;
-		int bit = x & 63;
-		return (data.bits[word] >> bit) & 1;
-	}
+  bool getbit(TYPE x)
+  {
+    int word = x >> 6;
+    int bit  = x & 63;
+    return (data.bits[word] >> bit) & 1;
+  }
 
-	// insert an item into a small set
+  // insert an item into a small set
 
-	void insert_small (TYPE x) {
-		int i;
-		for (i=0; i<card; i++) {
-			TYPE y = data.values[i];
-			if (y == x) return;
-			if (y > x) break;
-		}
-		// x belongs in i; move everything from v[i] through v[n-1]
-		// to v[i+1] through v[n]
-		for (int j=card-1; j>=i; j--) data.values[j+1] = data.values[j];
-		// the loop seems a little faster than memmove
-		//memmove (&data.values[i+1], &data.values[i], (sizeof (TYPE) * (card-i)));
-		data.values[i] = x;
-		card++;
-	}
+  void insert_small(TYPE x)
+  {
+    int i;
+    for (i = 0; i < card; i++) {
+      TYPE y = data.values[i];
+      if (y == x)
+        return;
+      if (y > x)
+        break;
+    }
+    // x belongs in i; move everything from v[i] through v[n-1]
+    // to v[i+1] through v[n]
+    for (int j = card - 1; j >= i; j--)
+      data.values[j + 1] = data.values[j];
+    // the loop seems a little faster than memmove
+    // memmove (&data.values[i+1], &data.values[i], (sizeof (TYPE) * (card-i)));
+    data.values[i] = x;
+    card++;
+  }
 
+  // do a linear search in a small set
 
-	// do a linear search in a small set
+  bool search_small_linear(TYPE x)
+  {
+    for (int i = 0; i < card; i++) {
+      TYPE y = data.values[i];
+      if (y > x)
+        return false;
+      if (y == x)
+        return true;
+    }
+    return false;
+  }
 
-	bool search_small_linear (TYPE x) {
-		for (int i=0; i<card; i++) {
-			TYPE y = data.values[i];
-			if (y > x) return false;
-			if (y == x) return true;
-		}
-		return false;
-	}
+  // search a small set, specializing for the set size
 
+  bool search_small(TYPE x)
+  {
+    // no elements? we're done.
 
-	// search a small set, specializing for the set size
+    if (!card)
+      return false;
 
-	bool search_small (TYPE x) {
+    // below a certain size linear search is faster
 
-		// no elements? we're done.
+    if (card < SMALLER_SIZE)
+      return search_small_linear(x);
 
-		if (!card) return false;
+    // do a binary search for the item
 
-		// below a certain size linear search is faster
+    int begin  = 0;
+    int end    = card - 1;
+    int middle = end / 2;
+    for (;;) {
+      TYPE y = data.values[middle];
+      if (x < y) {
+        end = middle - 1;
+      } else if (x > y) {
+        begin = middle + 1;
+      } else
+        return true;
+      if (end < begin)
+        break;
+      middle = (begin + end) / 2;
+      // assert (middle < card && middle >= 0);
+    }
+    return false;
+  }
 
-		if (card < SMALLER_SIZE) return search_small_linear (x);
+  // convert a small set into a bitset
 
-		// do a binary search for the item
+  void smalltobit(void)
+  {
+    // we have to use a temporary array to hold the small set contents
+    // because the small set and bitset occupy the same memory
 
-		int begin = 0;
-		int end = card-1;
-		int middle = end/2;
-		for (;;) {
-			TYPE y = data.values[middle];
-			if (x < y) {
-				end = middle-1;
-			} else if (x > y) {
-				begin = middle+1;
-			} else return true;
-			if (end < begin) break;
-			middle = (begin + end) / 2;
-			// assert (middle < card && middle >= 0);
-		}
-		return false;
-	}
+    TYPE tmp[SMALL_SIZE];
+    memcpy(tmp, data.values, sizeof(TYPE) * card);
+    memset(data.bits, 0, sizeof(data.bits));
+    for (int i = 0; i < card; i++)
+      setbit(tmp[i]);
+  }
 
-	// convert a small set into a bitset
+  public:
+  // constructor
 
-	void smalltobit (void) {
+  fastset(void)
+  {
+    card = 0;
+  }
 
-		// we have to use a temporary array to hold the small set contents
-		// because the small set and bitset occupy the same memory 
-	
-		TYPE tmp[SMALL_SIZE];
-		memcpy (tmp, data.values, sizeof (TYPE) * card);
-		memset (data.bits, 0, sizeof (data.bits));
-		for (int i=0; i<card; i++) setbit (tmp[i]);
-	}
+  // destructor
 
-public:
+  ~fastset(void)
+  {
+  }
 
-	// constructor
+  // insert a value into the set
 
-	fastset (void) { card = 0; }
+  void insert(TYPE x)
+  {
+    // assert (x < MAX_SIZE);
 
-	// destructor
+    // if the set is empty...
+    if (!card) {
+      // now it has a single value
 
-	~fastset (void) { }
+      data.values[card++] = x;
 
-	// insert a value into the set
+      // and we're done
 
-	void insert (TYPE x) {
-		//assert (x < MAX_SIZE);
+      return;
+    }
 
-		// if the set is empty...
-		if (!card) {
-			// now it has a single value
+    // if the set is small
 
-			data.values[card++] = x;
+    if (card < SMALL_SIZE) {
+      insert_small(x);
+      if (card == SMALL_SIZE)
+        smalltobit();
+    } else
 
-			// and we're done
+      // set the value
+      setbit(x);
+  }
 
-			return;
-		} 
+  // search the set for a value
 
-		// if the set is small
+  bool search(TYPE x)
+  {
+    // assert (x < MAX_SIZE);
 
-		if (card < SMALL_SIZE) {
-			insert_small (x);
-			if (card == SMALL_SIZE) smalltobit ();
-		} else
+    // empty?
+    if (!card)
+      return false;
 
-		// set the value
-		setbit (x);
-	}
+    // singleton?
+    if (card == 1)
+      return data.values[0] == x;
 
-	// search the set for a value
+    // small?
+    if (card < SMALL_SIZE)
+      return search_small(x);
 
-	bool search (TYPE x) {
-		//assert (x < MAX_SIZE);
+    // none of those; extract the bit
 
-		// empty?
-		if (!card) return false;
+    return getbit(x);
+  }
 
-		// singleton?
-		if (card == 1) return data.values[0] == x;
+  // this set becomes the union of itself and the other set
+  // (call it "join" because "union" is a C++ keyword)
 
-		// small?
-		if (card < SMALL_SIZE) return search_small (x);
+  void join(fastset &other, int n)
+  {
+    // special rules for special sets
 
-		// none of those; extract the bit
+    if (!other.card)
+      return;
 
-		return getbit (x);
-	}
+    if (other.card < SMALL_SIZE) {
+      // not too many values in other; just insert them one by one
 
-	// this set becomes the union of itself and the other set
-	// (call it "join" because "union" is a C++ keyword)
+      for (int i = 0; i < other.card; i++)
+        insert(other.data.values[i]);
+      return;
+    } else if (card < SMALL_SIZE) {
+      // here, we know that other is not small, so we
+      // know we're going to end up with this as a bit
+      // set, so just make it a bit set now and fall
+      // through to the bitwise ANDing
+      smalltobit();
+      card = SMALL_SIZE;  // fake
+      assert(other.card >= SMALL_SIZE);
+    }
 
-	void join (fastset & other, int n) {
+    // lim is the next multiple of 64
 
-		// special rules for special sets
+    int lim = ((n | 63) + 1) / 64;
 
-		if (!other.card) return;
+    // bitwise OR the other bits into this set
+    for (int i = 0; i < lim; i++)
+      data.bits[i] |= other.data.bits[i];
+  }
 
-		if (other.card < SMALL_SIZE) {
-			// not too many values in other; just insert them one by one
+  // expand the entire set into the array v, returning the cardinality
 
-			for (int i=0; i<other.card; i++) insert (other.data.values[i]);
-			return;
-		} else if (card < SMALL_SIZE) {
-			// here, we know that other is not small, so we
-			// know we're going to end up with this as a bit
-			// set, so just make it a bit set now and fall 
-			// through to the bitwise ANDing
-			smalltobit ();
-			card = SMALL_SIZE; // fake
-			assert (other.card >= SMALL_SIZE);
-		}
+  int expand(TYPE v[], int n)
+  {
+    if (!card)
+      return 0;
 
-		// lim is the next multiple of 64
+    // a small set can just be copied
 
-		int lim = ((n | 63) + 1) / 64;
+    if (card < SMALL_SIZE) {
+      for (int i = 0; i < card; i++)
+        v[i] = data.values[i];
+      return card;
+    }
 
-		// bitwise OR the other bits into this set
-		for (int i=0; i<lim; i++) data.bits[i] |= other.data.bits[i];
-	}
+    // go through the bit array looking for elements
 
-	// expand the entire set into the array v, returning the cardinality
+    int  k = 0;
+    TYPE i;
+    for (i = 0; i < n; i += 64) {
+      // if this 64 bit subset is not empty, copy it into v
 
-	int expand (TYPE v[], int n) {
-		if (!card) return 0;
-
-		// a small set can just be copied
-
-		if (card < SMALL_SIZE) {
-			for (int i=0; i<card; i++) v[i] = data.values[i];
-			return card;
-		}
-
-		// go through the bit array looking for elements
-
-		int k = 0;
-		TYPE i;
-		for (i=0; i<n; i+=64) {
-
-			// if this 64 bit subset is not empty, copy it into v
-
-			if (data.bits[i/64]) {
-				for (TYPE j=0; j<64; j++) {
-					TYPE l = i + j;
-					if (l < n) {
-						if (getbit (l)) v[k++] = l;
-					} else break;
-				}
-			}
-		}
-		return k;
-	}
+      if (data.bits[i / 64]) {
+        for (TYPE j = 0; j < 64; j++) {
+          TYPE l = i + j;
+          if (l < n) {
+            if (getbit(l))
+              v[k++] = l;
+          } else
+            break;
+        }
+      }
+    }
+    return k;
+  }
 };
 
-// this little macro iterates over either the whole set or just the single member
+// this little macro iterates over either the whole set or just the single
+// member
 
-#define ITERATE_SET(i,a,n) \
-	TYPE expand_##i[n+1]; \
-	int card_##i = (a).expand (expand_##i, n); \
-	for (int count_##i=0, i=expand_##i[0]; count_##i<card_##i; i=expand_##i[++count_##i])
+#define ITERATE_SET(i, a, n)                                                   \
+  TYPE expand_##i[n + 1];                                                      \
+  int  card_##i = (a).expand(expand_##i, n);                                   \
+  for (int count_##i = 0, i = expand_##i[0]; count_##i < card_##i;             \
+       i = expand_##i[++count_##i])
 
 #endif

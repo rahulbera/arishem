@@ -72,10 +72,10 @@ fi
 # Check for multi-core
 if [ "$NUM_CORE" -gt "1" ]; then
     echo "Building multi-core ChampSim..."
-    sed -i.bak 's/\<NUM_CPUS 1\>/NUM_CPUS '${NUM_CORE}'/g' inc/champsim.h
+    sed -i.bak 's/\<NUM_CPUS 1\>/NUM_CPUS '${NUM_CORE}'/g' inc/defs.h
     if [ "$NUM_CORE" -gt "2" ]; then
-    	sed -i.bak 's/\<DRAM_CHANNELS 1\>/DRAM_CHANNELS 2/g' inc/champsim.h
-    	sed -i.bak 's/\<LOG2_DRAM_CHANNELS 0\>/LOG2_DRAM_CHANNELS 1/g' inc/champsim.h
+    	sed -i.bak 's/\<DRAM_CHANNELS 1\>/DRAM_CHANNELS 2/g' inc/defs.h
+    	sed -i.bak 's/\<LOG2_DRAM_CHANNELS 0\>/LOG2_DRAM_CHANNELS 1/g' inc/defs.h
     fi
 else
     if [ "$NUM_CORE" -lt "1" ]; then
@@ -98,7 +98,7 @@ cp replacement/${LLC_REPLACEMENT}.llc_repl replacement/llc_replacement.cc
 mkdir -p bin
 rm -f bin/champsim
 make clean
-make
+make -j12
 
 # Sanity check
 echo ""
@@ -122,9 +122,9 @@ mv bin/champsim bin/${BINARY_NAME}
 
 
 # Restore to the default configuration
-sed -i.bak 's/\<NUM_CPUS '${NUM_CORE}'\>/NUM_CPUS 1/g' inc/champsim.h
-sed -i.bak 's/\<DRAM_CHANNELS 2\>/DRAM_CHANNELS 1/g' inc/champsim.h
-sed -i.bak 's/\<LOG2_DRAM_CHANNELS 1\>/LOG2_DRAM_CHANNELS 0/g' inc/champsim.h
+sed -i.bak 's/\<NUM_CPUS '${NUM_CORE}'\>/NUM_CPUS 1/g' inc/defs.h
+sed -i.bak 's/\<DRAM_CHANNELS 2\>/DRAM_CHANNELS 1/g' inc/defs.h
+sed -i.bak 's/\<LOG2_DRAM_CHANNELS 1\>/LOG2_DRAM_CHANNELS 0/g' inc/defs.h
 
 cp branch/bimodal.bpred branch/branch_predictor.cc
 cp prefetcher/no.l1d_pref prefetcher/l1d_prefetcher.cc

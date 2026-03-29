@@ -19,7 +19,7 @@ def main():
     parser.add_argument('--local', default='0', help='Run locally (1) or via sbatch (0)')
     parser.add_argument('--exclude', dest='exclude_list', default=None, help='Node exclude list')
     parser.add_argument('--include', dest='include_list', default=None, help='Node include list')
-    parser.add_argument('--partition', default='slurm_part', help='Slurm partition')
+    parser.add_argument('--partition', default='cpu_part', help='Slurm partition')
     parser.add_argument('--extra', default=None, help='Extra sbatch arguments')
     args = parser.parse_args()
 

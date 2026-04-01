@@ -1,2 +1,2 @@
-export PIN_ROOT=/mnt/panzer/rahbera/softwares/pin-3.11-97998-g7ecce2dac-gcc-linux
+export PIN_ROOT=/home/rahbera/softwares/pin-external-3.31-98869-gfa6f126a8-gcc-linux
 make clean

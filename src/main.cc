@@ -797,9 +797,11 @@ int main(int argc, char **argv)
         sprintf(ooo_cpu[count_traces].gunzip_command, "gunzip -c %s", argv[i]);
       else if (full_name[last_dot - full_name + 1] == 'x')  // xz
         sprintf(ooo_cpu[count_traces].gunzip_command, "xz -dc %s", argv[i]);
+      else if (full_name[last_dot - full_name + 1] == 'z')  // zstd format
+        sprintf(ooo_cpu[count_traces].gunzip_command, "zstd -dc %s", argv[i]);
       else {
         cout
-          << "ChampSim does not support traces other than gz or xz compression!"
+          << "ChampSim does not support traces other than gz, xz, or zst compression!"
           << endl;
         assert(0);
       }

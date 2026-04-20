@@ -16,6 +16,7 @@ uint64_t       warmup_instructions     = 1000000;
 uint64_t       simulation_instructions = 1000000;
 bool           knob_cloudsuite         = false;
 bool           knob_low_bandwidth      = false;
+uint32_t       trace_version           = 1;
 vector<string> l2c_prefetcher_types;
 vector<string> l1d_prefetcher_types;
 bool           l1d_perfect                         = false;
@@ -331,6 +332,8 @@ int parse_knobs(void       *user,
     knob::knob_cloudsuite = !strcmp(value, "true") ? true : false;
   } else if (MATCH("", "knob_low_bandwidth")) {
     knob::knob_low_bandwidth = atoi(value);
+  } else if (MATCH("", "trace_version")) {
+    knob::trace_version = atoi(value);
   } else if (MATCH("", "l2c_prefetcher_types")) {
     knob::l2c_prefetcher_types.push_back(string(value));
   } else if (MATCH("", "l1d_prefetcher_types")) {

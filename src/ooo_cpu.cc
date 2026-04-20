@@ -4,7 +4,8 @@
 
 namespace knob
 {
-extern bool knob_cloudsuite;
+extern bool     knob_cloudsuite;
+extern uint32_t trace_version;
 }
 
 const char *GetAccessType(uint8_t type)
@@ -62,8 +63,13 @@ void O3_CPU::handle_branch()
 
   // first, read PIN trace
   while (continue_reading) {
-    size_t instr_size = knob::knob_cloudsuite ? sizeof(cloudsuite_instr)
-                                              : sizeof(input_instr);
+    size_t instr_size;
+    if (knob::trace_version == 2)
+      instr_size = sizeof(input_instr_v2);
+    else if (knob::knob_cloudsuite)
+      instr_size = sizeof(cloudsuite_instr);
+    else
+      instr_size = sizeof(input_instr);
 
     if (knob::knob_cloudsuite) {
       if (!fread(&current_cloudsuite_instr, instr_size, 1, trace_file)) {
@@ -216,7 +222,15 @@ void O3_CPU::handle_branch()
         instr_unique_id++;
       }
     } else {
-      if (!fread(&current_instr, instr_size, 1, trace_file)) {
+      // Read v1 or v2 trace record
+      bool read_ok;
+      if (knob::trace_version == 2) {
+        read_ok = fread(&current_instr_v2, instr_size, 1, trace_file) == 1;
+      } else {
+        read_ok = fread(&current_instr, instr_size, 1, trace_file) == 1;
+      }
+
+      if (!read_ok) {
         // reached end of file for this trace
         cout << "*** Reached end of trace for Core: " << cpu
              << " Repeating trace: " << trace_string << endl;
@@ -231,6 +245,23 @@ void O3_CPU::handle_branch()
           assert(0);
         }
       } else {  // successfully read the trace
+
+        // For v2, alias the v2 record's base fields into current_instr
+        // so the rest of the code works unchanged.
+        // The first 64 bytes of input_instr_v2 are layout-identical to input_instr.
+        if (knob::trace_version == 2) {
+          current_instr.ip           = current_instr_v2.ip;
+          current_instr.is_branch    = current_instr_v2.is_branch;
+          current_instr.branch_taken = current_instr_v2.branch_taken;
+          for (int i = 0; i < NUM_INSTR_DESTINATIONS; i++) {
+            current_instr.destination_registers[i] = current_instr_v2.destination_registers[i];
+            current_instr.destination_memory[i]    = current_instr_v2.destination_memory[i];
+          }
+          for (int i = 0; i < NUM_INSTR_SOURCES; i++) {
+            current_instr.source_registers[i] = current_instr_v2.source_registers[i];
+            current_instr.source_memory[i]    = current_instr_v2.source_memory[i];
+          }
+        }
 
         // copy the instruction into the performance model's instruction format
         ooo_model_instr arch_instr;

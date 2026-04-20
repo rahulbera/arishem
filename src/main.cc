@@ -41,6 +41,7 @@ extern uint64_t warmup_instructions;
 extern uint64_t simulation_instructions;
 extern uint8_t  knob_cloudsuite;
 extern uint8_t  knob_low_bandwidth;
+extern uint32_t trace_version;
 extern bool     measure_ipc;
 extern uint32_t measure_ipc_epoch;
 extern uint32_t dram_io_freq;

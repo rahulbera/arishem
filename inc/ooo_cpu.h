@@ -32,6 +32,7 @@ class O3_CPU
 
   // instruction
   input_instr      current_instr;
+  input_instr_v2   current_instr_v2;
   cloudsuite_instr current_cloudsuite_instr;
   uint64_t         instr_unique_id, completed_executions, begin_sim_cycle,
     begin_sim_instr, last_sim_cycle, last_sim_instr, finish_sim_cycle,

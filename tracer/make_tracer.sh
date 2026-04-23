@@ -3,3 +3,4 @@ export ZSTD_HOME=/home/rahbera/local
 mkdir -p obj-intel64
 #make obj-intel64/champsim_tracer.so
 make obj-intel64/champsim_tracer_mt_roi.so
+make obj-intel64/champsim_tracer_mt_roi_v2.so

@@ -71,8 +71,9 @@ extern "C" {
  * CHAMPSIM_ROI_END in champsim_tracer_mt_roi.cpp as well.
  * ========================================================================= */
 
-#define CHAMPSIM_ROI_BEGIN ((uint64_t)1)
-#define CHAMPSIM_ROI_END   ((uint64_t)2)
+#define CHAMPSIM_ROI_BEGIN       ((uint64_t)1)
+#define CHAMPSIM_ROI_END         ((uint64_t)2)
+#define CHAMPSIM_REGISTER_WORKER ((uint64_t)3)  /* v3 tracer only */
 
 /* =========================================================================
  * Compiler barrier
@@ -138,6 +139,29 @@ static inline void champsim_roi_end(void)
   champsim_marker(CHAMPSIM_ROI_END);
   printf("[ChampSim] ROI end\n");
   fflush(stdout);
+}
+
+/*
+ * champsim_register_worker()  [v3 tracer only]
+ *
+ * Marks the calling thread as a foreground worker. The v3 tracer (when
+ * launched with -trace_only_registered_workers 1) will only allow threads
+ * that have called this marker to enter TRACING. Threads that never call
+ * this marker (e.g. RocksDB pthread-pool flush/compaction threads, OpenMP
+ * workers spawned by a library) stay in WAITING_FOR_ROI and never count
+ * toward active_tracing_threads, so they cannot disrupt INTER_SKIP timing.
+ *
+ * Older tracers (v1, v2) ignore this marker -- the magic NOP is still
+ * benign there, since unrecognised RCX values fall through HandleMarker.
+ *
+ * Call this from the top of each foreground worker thread, AFTER the
+ * thread is pinned and ready to start its work. May be called BEFORE or
+ * AFTER champsim_roi_begin(); the registration is permanent for the
+ * thread's lifetime.
+ */
+static inline void champsim_register_worker(void)
+{
+  champsim_marker(CHAMPSIM_REGISTER_WORKER);
 }
 
 #ifdef __cplusplus

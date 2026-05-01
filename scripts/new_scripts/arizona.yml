@@ -1,0 +1,899 @@
+---
+
+gtrace_v2:
+  - arizona-16362031984258116688.1013732:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.1013732.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.1123750:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.1123750.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.1171988:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.1171988.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.1372657:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.1372657.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.1662482:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.1662482.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.18313:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.18313.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2001008:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2001008.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2104442:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2104442.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2132475:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2132475.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.224472:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.224472.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2615720:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2615720.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2668474:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2668474.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2739798:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2739798.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2744363:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2744363.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2749464:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2749464.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2749680:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2749680.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2749682:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2749682.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2758467:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2758467.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2759274:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2759274.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2763650:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2763650.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2764679:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2764679.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2766184:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2766184.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2767149:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2767149.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.2768239:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.2768239.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.295676:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.295676.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.317868:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.317868.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.326869:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.326869.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.356145:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.356145.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.357941:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.357941.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778926:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778926.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778945:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778945.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778947:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778947.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778948:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778948.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778949:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778949.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778967:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778967.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778975:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778975.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778976:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778976.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778977:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778977.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778978:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778978.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778979:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778979.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778980:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778980.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778981:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778981.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778982:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778982.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778983:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778983.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778985:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778985.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778986:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778986.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778987:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778987.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778988:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778988.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778989:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778989.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778994:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778994.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778995:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778995.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3778996:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3778996.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779000:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779000.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779018:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779018.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779030:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779030.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779032:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779032.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779048:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779048.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779071:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779071.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779076:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779076.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779077:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779077.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779103:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779103.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779104:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779104.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779105:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779105.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779117:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779117.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779118:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779118.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779120:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779120.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779989:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779989.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779990:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779990.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3779991:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3779991.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780009:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780009.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780010:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780010.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780039:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780039.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780040:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780040.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780041:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780041.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780206:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780206.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3780207:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3780207.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3783145:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3783145.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3783146:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3783146.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784177:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784177.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784322:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784322.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784323:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784323.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784352:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784352.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784506:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784506.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784911:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784911.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3784912:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3784912.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3785265:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3785265.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3785374:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3785374.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3785375:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3785375.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3786009:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3786009.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3786402:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3786402.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3788425:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3788425.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3789062:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3789062.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3790876:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3790876.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3791534:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3791534.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3794967:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3794967.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3796806:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3796806.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3796807:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3796807.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3801151:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3801151.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3802915:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3802915.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3804254:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3804254.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3804948:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3804948.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3807676:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3807676.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3809309:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3809309.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3811035:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3811035.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3812716:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3812716.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3815911:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3815911.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.382301:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.382301.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.382302:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.382302.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3823950:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3823950.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3841992:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3841992.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3849453:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3849453.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3874750:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3874750.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3886161:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3886161.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3887628:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3887628.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3890015:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3890015.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3925394:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3925394.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3941447:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3941447.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3964938:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3964938.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.3976223:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.3976223.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.4016644:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.4016644.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.4024482:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.4024482.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.449379:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.449379.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.462148:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.462148.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.482826:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.482826.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.699210:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.699210.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.815998:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.815998.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.816716:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.816716.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []
+  - arizona-16362031984258116688.827317:
+        path: /home/rahbera/tracezoo/scarab/memtraces/google_traces/arizona/trace/16362031984258116688.827317.memtrace.zip
+        workload: arizona
+        weight:
+        category: google
+        subcategory: arizona
+        tags: []

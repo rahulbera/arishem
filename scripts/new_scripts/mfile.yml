@@ -1,0 +1,23 @@
+---
+#- ipc:
+#    target: $(general.IPC)
+- instructions:
+    target: $(general.INSTRUCTIONS)
+# - bp_accuracy:
+#     target: $(bp.BP_ON_PATH_CORRECT) / ($(bp.BP_ON_PATH_CORRECT) + $(bp.BP_ON_PATH_MISPREDICT) + $(bp.BP_ON_PATH_MISFETCH))
+# - total_uops:
+#     target: $(core.OP_RETIRED)
+# - icql_uops:
+#     target: $(core.ICQL_CF_ON_PATH) + $(core.ICQL_DF_ON_PATH)
+# - node_cycle:
+#     target: $(core.NODE_CYCLE)
+# - rs_full_cycle:
+#     target: $(core.RS_FULL)
+# - vp_on_path_cov:
+#     target: $(vp.VP_ON_PATH_CORRECT) / $(vp.VP_ELIGIBLE_OPS_ON_PATH)
+# - vp_on_path_acc:
+#     target: $(vp.VP_ON_PATH_CORRECT) / ($(vp.VP_ON_PATH_CORRECT) + $(vp.VP_ON_PATH_MISPREDICT))
+# - vp_off_path_cov:
+#     target: $(vp.VP_OFF_PATH_CORRECT) / $(vp.VP_ELIGIBLE_OPS_OFF_PATH)
+# - vp_off_path_acc:
+#     target: $(vp.VP_OFF_PATH_CORRECT) / ($(vp.VP_OFF_PATH_CORRECT) + $(vp.VP_OFF_PATH_MISPREDICT))

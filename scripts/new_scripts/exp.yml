@@ -1,0 +1,10 @@
+---
+definitions:
+- BASEMACHINE: "/home/rahbera/garfield/scarab/src/configs/PARAMS.lnc"
+- BASE: "--warmup=50000000 --inst_limit=200000000"
+- PERFECT_BP: "--perfect_bp=1"
+- EVES: "--vp_mech=eves --fetch_on_vpmispred=1"
+
+experiments:
+- lnc_base: "$(BASEMACHINE)"
+- perfect_bp: "$(BASEMACHINE) $(PERFECT_BP)"

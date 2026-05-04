@@ -783,54 +783,28 @@ int main(int argc, char **argv)
     if (found_traces) {
       printf("trace_%d %s\n", count_traces, argv[i]);
 
-      sprintf(ooo_cpu[count_traces].trace_string, "%s", argv[i]);
-
-      char *full_name = ooo_cpu[count_traces].trace_string,
-           *last_dot  = strrchr(ooo_cpu[count_traces].trace_string, '.');
-
-      ifstream test_file(full_name);
-      if (!test_file.good()) {
-        printf("TRACE FILE DOES NOT EXIST\n");
-        assert(false);
+      try {
+        ooo_cpu[count_traces].trace_reader.reset(new TraceReader(argv[i]));
+      }
+      catch (const std::exception &e) {
+        cerr << "*** " << e.what() << " ***" << endl;
+        exit(1);
       }
 
-      if (full_name[last_dot - full_name + 1] == 'g')  // gzip format
-        sprintf(ooo_cpu[count_traces].gunzip_command, "gunzip -c %s", argv[i]);
-      else if (full_name[last_dot - full_name + 1] == 'x')  // xz
-        sprintf(ooo_cpu[count_traces].gunzip_command, "xz -dc %s", argv[i]);
-      else if (full_name[last_dot - full_name + 1] == 'z')  // zstd format
-        sprintf(ooo_cpu[count_traces].gunzip_command, "zstd -dc %s", argv[i]);
-      else {
-        cout
-          << "ChampSim does not support traces other than gz, xz, or zst compression!"
-          << endl;
-        assert(0);
-      }
-
+      // Note: strtok below mutates argv[i] in place. TraceReader has
+      // already copied the path internally, so this is safe.
       char *pch[100];
       int   count_str = 0;
       pch[0]          = strtok(argv[i], " /,.-");
       while (pch[count_str] != NULL) {
-        // printf ("%s %d\n", pch[count_str], count_str);
         count_str++;
         pch[count_str] = strtok(NULL, " /,.-");
       }
 
-      // printf("max count_str: %d\n", count_str);
-      // printf("application: %s\n", pch[count_str-3]);
-
       int j = 0;
       while (pch[count_str - 3][j] != '\0') {
         seed_number += pch[count_str - 3][j];
-        // printf("%c %d %d\n", pch[count_str-3][j], j, seed_number);
         j++;
-      }
-
-      ooo_cpu[count_traces].trace_file =
-        popen(ooo_cpu[count_traces].gunzip_command, "r");
-      if (ooo_cpu[count_traces].trace_file == NULL) {
-        printf("\n*** Trace file not found: %s ***\n\n", argv[i]);
-        assert(0);
       }
 
       count_traces++;

@@ -1,10 +1,12 @@
 #ifndef OOO_CPU_H
 #define OOO_CPU_H
 
+#include <memory>
 #include <unordered_set>
 
 #include "cache.h"
 #include "instruction.h"
+#include "trace_reader.h"
 
 #ifdef CRC2_COMPILE
 #define STAT_PRINTING_PERIOD 1000000
@@ -26,9 +28,7 @@ class O3_CPU
   uint32_t cpu;
 
   // trace
-  FILE *trace_file;
-  char  trace_string[1024];
-  char  gunzip_command[1024];
+  std::unique_ptr<TraceReader> trace_reader;
 
   // instruction
   input_instr      current_instr;
@@ -132,9 +132,6 @@ class O3_CPU
   O3_CPU()
   {
     cpu = 0;
-
-    // trace
-    trace_file = NULL;
 
     // instruction
     instr_unique_id            = 0;

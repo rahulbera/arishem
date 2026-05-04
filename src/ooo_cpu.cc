@@ -72,19 +72,19 @@ void O3_CPU::handle_branch()
       instr_size = sizeof(input_instr);
 
     if (knob::knob_cloudsuite) {
-      if (!fread(&current_cloudsuite_instr, instr_size, 1, trace_file)) {
+      if (!trace_reader->read(&current_cloudsuite_instr, instr_size)) {
         // reached end of file for this trace
         cout << "*** Reached end of trace for Core: " << cpu
-             << " Repeating trace: " << trace_string << endl;
+             << " Repeating trace: " << trace_reader->path() << endl;
 
-        // close the trace file and re-open it
-        pclose(trace_file);
-        trace_file = popen(gunzip_command, "r");
-        if (trace_file == NULL) {
+        try {
+          trace_reader->rewind();
+        }
+        catch (const std::exception &e) {
           cerr << endl
-               << "*** CANNOT REOPEN TRACE FILE: " << trace_string << " ***"
-               << endl;
-          assert(0);
+               << "*** CANNOT REOPEN TRACE FILE: " << trace_reader->path()
+               << " (" << e.what() << ") ***" << endl;
+          exit(1);
         }
       } else {  // successfully read the trace
 
@@ -225,24 +225,24 @@ void O3_CPU::handle_branch()
       // Read v1 or v2 trace record
       bool read_ok;
       if (knob::trace_version == 2) {
-        read_ok = fread(&current_instr_v2, instr_size, 1, trace_file) == 1;
+        read_ok = trace_reader->read(&current_instr_v2, instr_size);
       } else {
-        read_ok = fread(&current_instr, instr_size, 1, trace_file) == 1;
+        read_ok = trace_reader->read(&current_instr, instr_size);
       }
 
       if (!read_ok) {
         // reached end of file for this trace
         cout << "*** Reached end of trace for Core: " << cpu
-             << " Repeating trace: " << trace_string << endl;
+             << " Repeating trace: " << trace_reader->path() << endl;
 
-        // close the trace file and re-open it
-        pclose(trace_file);
-        trace_file = popen(gunzip_command, "r");
-        if (trace_file == NULL) {
+        try {
+          trace_reader->rewind();
+        }
+        catch (const std::exception &e) {
           cerr << endl
-               << "*** CANNOT REOPEN TRACE FILE: " << trace_string << " ***"
-               << endl;
-          assert(0);
+               << "*** CANNOT REOPEN TRACE FILE: " << trace_reader->path()
+               << " (" << e.what() << ") ***" << endl;
+          exit(1);
         }
       } else {  // successfully read the trace
 

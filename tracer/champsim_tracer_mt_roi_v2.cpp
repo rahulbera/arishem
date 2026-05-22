@@ -682,7 +682,7 @@ static bool is_roi_marker(INS ins)
     return false;
   REG r0 = REG_FullRegName(INS_OperandReg(ins, 0));
   REG r1 = REG_FullRegName(INS_OperandReg(ins, 1));
-  return (r0 == REG_RCX && r1 == REG_RCX);
+  return (r0 == LEVEL_BASE::REG_RCX && r1 == LEVEL_BASE::REG_RCX);
 }
 
 /* =========================================================================
@@ -1308,7 +1308,7 @@ VOID InstrumentTrace(TRACE trace, VOID * /* unused */)
                          (AFUNPTR)HandleMarker,
                          IARG_THREAD_ID,
                          IARG_REG_VALUE,
-                         REG_RCX,
+                         LEVEL_BASE::REG_RCX,
                          IARG_END);
         }
       }
@@ -1331,7 +1331,7 @@ VOID InstrumentTrace(TRACE trace, VOID * /* unused */)
                          (AFUNPTR)HandleMarker,
                          IARG_THREAD_ID,
                          IARG_REG_VALUE,
-                         REG_RCX,
+                         LEVEL_BASE::REG_RCX,
                          IARG_END);
         }
         insert_full_analysis(ins, values_on);
@@ -1363,7 +1363,7 @@ VOID InstrumentTrace(TRACE trace, VOID * /* unused */)
                            (AFUNPTR)HandleMarker,
                            IARG_THREAD_ID,
                            IARG_REG_VALUE,
-                           REG_RCX,
+                           LEVEL_BASE::REG_RCX,
                            IARG_END);
           }
         }

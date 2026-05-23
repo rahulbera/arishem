@@ -284,6 +284,20 @@ static const char *phase_name(Phase p)
  *                             requested (unmapped page, guard page,
  *                             etc.). The captured prefix is kept,
  *                             remaining bytes left zero.
+ *   g_scattered_instrs_seen:  Dynamic count of vgather/vscatter (and any
+ *                             other INS_HasScatteredMemoryAccess) instrs
+ *                             executed under tracing. Their per-lane
+ *                             addresses are drained via
+ *                             IARG_MULTI_MEMORYACCESS_EA into the normal
+ *                             src/dst slots (overflow lanes fall into
+ *                             g_overflowed_src_memops/g_overflowed_dst_memops).
+ *   g_scatter_missed_store_values:
+ *                             Scatter (store) lanes whose post-write value
+ *                             we deliberately did not capture. IPOINT_AFTER
+ *                             value capture is not viable per-lane for
+ *                             scattered stores, so each masked-on store
+ *                             lane bumps both g_missed_store_values and
+ *                             this scatter-specific sub-counter.
  * ========================================================================= */
 
 static std::atomic<uint64_t> g_overflowed_src_memops{0};
@@ -292,6 +306,8 @@ static std::atomic<uint64_t> g_missed_store_values{0};
 static std::atomic<uint64_t> g_call_store_values_filled{0};
 static std::atomic<uint64_t> g_truncated_values{0};
 static std::atomic<uint64_t> g_safecopy_short_reads{0};
+static std::atomic<uint64_t> g_scattered_instrs_seen{0};
+static std::atomic<uint64_t> g_scatter_missed_store_values{0};
 
 // --- exit_on_done bookkeeping ---
 // Counts threads that ever entered TRACING and that ever reached DONE,
@@ -975,6 +991,63 @@ VOID RecordMemWrite(THREADID tid,
   g_overflowed_dst_memops.fetch_add(1, std::memory_order_relaxed);
 }
 
+// Pre-call for VSIB gather/scatter instructions (anything where
+// INS_HasScatteredMemoryAccess(ins) is true). PIN forbids calling
+// INS_MemoryOperandSize() on those operands at instrumentation time
+// because each lane carries its own (address, size, mask) tuple --
+// trying anyway aborts the tool with
+// "Instruction memory operand does not have a size". Instead we ask PIN
+// for the per-lane access info via IARG_MULTI_MEMORYACCESS_EA and dispatch
+// each masked-on lane into the normal src/dst slot machinery. Load lanes
+// reuse RecordMemRead so value capture and overflow accounting are shared
+// with non-scattered loads; store lanes inline a slot fill plus a value
+// miss bump (IPOINT_AFTER is not viable per-lane for scattered stores, so
+// we punt on the value, matching the no-fall-through non-call store path).
+VOID RecordScatteredMemAccess(THREADID                   tid,
+                              PIN_MULTI_MEM_ACCESS_INFO *info,
+                              UINT32                     want_load_value)
+{
+  ThreadState *ts = get_state(tid);
+  if (!ts || ts->phase != Phase::TRACING)
+    return;
+  if (!info)
+    return;
+
+  g_scattered_instrs_seen.fetch_add(1, std::memory_order_relaxed);
+
+  for (UINT32 lane_idx = 0; lane_idx < info->numberOfMemops; lane_idx++) {
+    const PIN_MEM_ACCESS_INFO &lane = info->memop[lane_idx];
+    if (!lane.maskOn)
+      continue;
+
+    if (lane.memopType == PIN_MEMOP_LOAD) {
+      RecordMemRead(tid,
+                    lane.memoryAddress,
+                    lane.bytesAccessed,
+                    want_load_value);
+      continue;
+    }
+
+    // STORE lane: fill a dst slot, leave value zero, mark as missed.
+    bool slotted = false;
+    for (int k = 0; k < NUM_INSTR_DESTINATIONS; k++) {
+      if (ts->curr_instr.destination_memory[k] == 0) {
+        ts->curr_instr.destination_memory[k]      =
+            (uint64_t)lane.memoryAddress;
+        ts->curr_instr.destination_memory_size[k] =
+            (uint8_t)std::min<UINT32>(lane.bytesAccessed, 255);
+        slotted = true;
+        break;
+      }
+    }
+    if (!slotted)
+      g_overflowed_dst_memops.fetch_add(1, std::memory_order_relaxed);
+
+    g_missed_store_values.fetch_add(1, std::memory_order_relaxed);
+    g_scatter_missed_store_values.fetch_add(1, std::memory_order_relaxed);
+  }
+}
+
 // Post-call fired at IPOINT_AFTER: the store has landed, so we can
 // PIN_SafeCopy the written bytes out of the effective address.
 VOID RecordMemWriteValue(THREADID tid, UINT32 op_idx)
@@ -1152,56 +1225,78 @@ static void insert_full_analysis(INS ins, bool capture_values)
   }
 
   UINT32 mem_ops          = INS_MemoryOperandCount(ins);
+  bool   has_scattered    = INS_HasScatteredMemoryAccess(ins);
   bool   has_store        = false;
   bool   has_fallthrough  = INS_HasFallThrough(ins);
   bool   is_call_no_ft    = INS_IsCall(ins) && !has_fallthrough;
-  bool   post_calls_ok    = capture_values && has_fallthrough;
+  // Scattered (VSIB gather/scatter) ops are funnelled through one
+  // RecordScatteredMemAccess call; the per-operand store-value plumbing
+  // below (IPOINT_AFTER capture, CALL ret-addr synthesis, missed-value
+  // counting) is bypassed for them.
+  bool   post_calls_ok    = capture_values && has_fallthrough && !has_scattered;
   // Stores whose value we can fill in: either via IPOINT_AFTER post-call
   // (fall-through instructions) or via synthesis at pre-call time for
   // calls (return address is known statically). Both paths populate
   // pending_store_slot[op_idx] via RecordMemWrite, so the 'will_capture'
   // flag is set for both.
-  bool   fill_store_values = capture_values && (has_fallthrough || is_call_no_ft);
+  bool   fill_store_values = capture_values
+                             && (has_fallthrough || is_call_no_ft)
+                             && !has_scattered;
 
-  // Pre-calls for every executed memory operand.
-  for (UINT32 i = 0; i < mem_ops; i++) {
-    UINT32 op_size = INS_MemoryOperandSize(ins, i);
+  if (has_scattered) {
+    // VSIB gather/scatter: per-lane addrs/sizes via IARG_MULTI_MEMORYACCESS_EA.
+    // Do NOT call INS_MemoryOperandSize() for any operand of this instr --
+    // PIN errors out the moment it's called on a scattered operand
+    // ("Instruction memory operand does not have a size").
+    INS_InsertPredicatedCall(ins,
+                             IPOINT_BEFORE,
+                             (AFUNPTR)RecordScatteredMemAccess,
+                             IARG_THREAD_ID,
+                             IARG_MULTI_MEMORYACCESS_EA,
+                             IARG_UINT32,
+                             (UINT32)(capture_values ? 1 : 0),
+                             IARG_END);
+  } else {
+    // Pre-calls for every executed memory operand.
+    for (UINT32 i = 0; i < mem_ops; i++) {
+      UINT32 op_size = INS_MemoryOperandSize(ins, i);
 
-    if (INS_MemoryOperandIsRead(ins, i)) {
-      INS_InsertPredicatedCall(ins,
-                               IPOINT_BEFORE,
-                               (AFUNPTR)RecordMemRead,
-                               IARG_THREAD_ID,
-                               IARG_MEMORYOP_EA,
-                               i,
-                               IARG_UINT32,
-                               op_size,
-                               IARG_UINT32,
-                               (UINT32)(capture_values ? 1 : 0),
-                               IARG_END);
-    }
-    if (INS_MemoryOperandIsWritten(ins, i)) {
-      has_store = true;
-      INS_InsertPredicatedCall(ins,
-                               IPOINT_BEFORE,
-                               (AFUNPTR)RecordMemWrite,
-                               IARG_THREAD_ID,
-                               IARG_MEMORYOP_EA,
-                               i,
-                               IARG_UINT32,
-                               op_size,
-                               IARG_UINT32,
-                               i,
-                               IARG_UINT32,
-                               (UINT32)(fill_store_values ? 1 : 0),
-                               IARG_END);
+      if (INS_MemoryOperandIsRead(ins, i)) {
+        INS_InsertPredicatedCall(ins,
+                                 IPOINT_BEFORE,
+                                 (AFUNPTR)RecordMemRead,
+                                 IARG_THREAD_ID,
+                                 IARG_MEMORYOP_EA,
+                                 i,
+                                 IARG_UINT32,
+                                 op_size,
+                                 IARG_UINT32,
+                                 (UINT32)(capture_values ? 1 : 0),
+                                 IARG_END);
+      }
+      if (INS_MemoryOperandIsWritten(ins, i)) {
+        has_store = true;
+        INS_InsertPredicatedCall(ins,
+                                 IPOINT_BEFORE,
+                                 (AFUNPTR)RecordMemWrite,
+                                 IARG_THREAD_ID,
+                                 IARG_MEMORYOP_EA,
+                                 i,
+                                 IARG_UINT32,
+                                 op_size,
+                                 IARG_UINT32,
+                                 i,
+                                 IARG_UINT32,
+                                 (UINT32)(fill_store_values ? 1 : 0),
+                                 IARG_END);
+      }
     }
   }
 
   // CALL-synthesised store values: must come AFTER RecordMemWrite in
   // insertion order at IPOINT_BEFORE so pending_store_slot is live.
   // Return address = INS_NextAddress(ins), constant per static call.
-  if (is_call_no_ft && capture_values && mem_ops > 0) {
+  if (is_call_no_ft && capture_values && mem_ops > 0 && !has_scattered) {
     ADDRINT ret_addr = INS_NextAddress(ins);
     for (UINT32 i = 0; i < mem_ops; i++) {
       if (INS_MemoryOperandIsWritten(ins, i)) {
@@ -1222,7 +1317,8 @@ static void insert_full_analysis(INS ins, bool capture_values)
   // AND we also can't synthesise them (non-call, no fall-through),
   // record each executed store as a missed value. Predicated pre-call
   // so only actually-executed ones are counted.
-  if (has_store && capture_values && !has_fallthrough && !is_call_no_ft) {
+  if (has_store && capture_values && !has_fallthrough && !is_call_no_ft
+      && !has_scattered) {
     for (UINT32 i = 0; i < mem_ops; i++) {
       if (INS_MemoryOperandIsWritten(ins, i)) {
         INS_InsertPredicatedCall(ins,
@@ -1514,6 +1610,10 @@ VOID Fini(INT32 /* code */, VOID * /* unused */)
             << g_truncated_values.load() << "\n"
             << "  PIN_SafeCopy short reads                : "
             << g_safecopy_short_reads.load() << "\n"
+            << "  scattered (gather/scatter) instrs seen  : "
+            << g_scattered_instrs_seen.load() << "\n"
+            << "  scatter store-value lanes skipped       : "
+            << g_scatter_missed_store_values.load() << "\n"
             << "  threads started tracing                 : "
             << g_threads_started_tracing.load() << "\n"
             << "  threads reached DONE                    : "
